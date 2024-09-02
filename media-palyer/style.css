@@ -1,10 +1,272 @@
-
-html {
-    box-sizing: border-box;
+:root {
+  --primary-color: dodgerblue;
+  --font-color: white;
 }
 
-  body {
-    margin: 0;
-    min-height: 100vh;
-    background: lightgoldenrodyellow;
+html {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background-color: #DFDBE5;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='96' viewBox='0 0 60 96'%3E%3Cg fill-rule='evenodd'%3E%3Cg fill='%239C92AC' fill-opacity='0.4'%3E%3Cpath d='M36 10a6 6 0 0 1 12 0v12a6 6 0 0 1-6 6 6 6 0 0 0-6 6 6 6 0 0 1-12 0 6 6 0 0 0-6-6 6 6 0 0 1-6-6V10a6 6 0 1 1 12 0 6 6 0 0 0 12 0zm24 78a6 6 0 0 1-6-6 6 6 0 0 0-6-6 6 6 0 0 1-6-6V58a6 6 0 1 1 12 0 6 6 0 0 0 6 6v24zM0 88V64a6 6 0 0 0 6-6 6 6 0 0 1 12 0v12a6 6 0 0 1-6 6 6 6 0 0 0-6 6 6 6 0 0 1-6 6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: Helvetica, sans-serif;
+  }
+  
+  .fas {
+    color: var(--font-color);
+    font-size: 35px;
+  }
+  
+  .player {
+    max-width: 80vw;
+    min-width: 800px;
+    border: 5px solid purple;
+    border-radius: 10px;
+    background: black;
+    position: relative;
+    cursor: pointer;
+  }
+  
+  .video {
+    border-radius: 5px;
+    width: 100%;
+    height: 100%;
+  }
+  
+  /* Containers */
+  .show-controls {
+    width: 100%;
+    height: 30%;
+    z-index: 2;
+    position: absolute;
+    bottom: 0;
+    cursor: default;
+  }
+  
+  .controls-container {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 95px;
+    background: rgba(0, 0, 0, 0.5);
+    box-sizing: border-box;
+    z-index: 5;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    opacity: 0;
+    transition: all 0.5s ease-out 2s;
+  }
+  
+  .show-controls:hover .controls-container {
+    opacity: 1;
+    transition: all 0.2s ease-out;
+  }
+  
+  .control-group {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  /* Progress Bar */
+  .progress-range {
+    height: 8px;
+    width: calc(100% - 30px);
+    background: rgb(202, 202, 202, 0.5);
+    border-radius: 10px;
+    position: absolute;
+    left: 15px;
+    top: 15px;
+    cursor: pointer;
+    transition: height 0.1s ease-in-out;
+  }
+  
+  .progress-range:hover {
+    height: 15px;
+  }
+  
+  .controls-container:hover .progress-range {
+    opacity: 1;
+    transition: all 0.2s ease-out;
+  }
+  
+  .progress-bar {
+    background: var(--primary-color);
+    width: 20%;
+    height: 100%;
+    border-radius: 10px;
+    transition: width 0.5s ease;
+  }
+  
+  /* Left Controls -------------------------- */
+  
+  .controls-left {
+    display: flex;
+    align-items: center;
+    margin-left: 15px;
+  }
+  
+  .play-controls {
+    margin-right: 20px;
+    display: flex;
+    align-items: center;
+  }
+  
+  .play-controls i {
+    color: var(--font-color);
+    font-size: 40px;
+    transition: color 0.2s ease-in-out;
+  }
+  
+  .play-controls 1:hover {
+    color: dodgerblue;
+    cursor: pointer;
+  }
+  
+  .volume {
+    display: flex;
+    align-items: center;
+  }
+  
+  .volume-icon {
+    cursor: pointer;
+    margin-right: 10px;
+  }
+  
+  .volume-range {
+    height: 8px;
+    width: 100px;
+    background: var(--primary-color);
+    border-radius: 10px;
+    cursor: pointer;
+  }
+  
+  .volume-bar {
+    background: var(--font-color);
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    transition: width 0.2s ease-in;
+  }
+  
+  .volume-bar:hover {
+    background: var(--primary-color);
+  }
+  
+  /* Right Controls ---------------------------- */
+  .controls-right {
+    display: flex;
+    align-items: center;
+    margin-right: 15px;
+  }
+  
+  /* playback speed */
+  
+  .speed {
+    margin-right: 15px;
+  }
+  
+  select,
+  option {
+    cursor: pointer;
+  }
+  
+  select {
+    color: var(--font-color);
+    border: none;
+    font-size: 18px;
+    position: relative;
+    top: -2.5;
+    border-radius: 5px;
+    background: black;
+  }
+  
+  select:focus {
+    outline: none;
+  }
+  
+  
+  select>option {
+    background: rgba(0, 0, 0, 0.9);
+    border: none;
+    font-size: 14px;
+  }
+  
+  .time {
+    margin-right: 15px;
+    color: var(--font-color);
+    font-weight: bold;
+    user-select: none;
+  }
+  
+  .fullscreen {
+    cursor: pointer;
+  }
+  
+  .video-fullscreen {
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  
+  /* Media Query: Large Smartphone (Vertical) */
+  @media screen and (max-width: 600px) {
+    .player {
+      min-width: 0;
+      max-width: 95vw;
+    }
+  
+    .fas {
+      font-size: 20px;
+    }
+  
+    .controls-container {
+      height: 50px;
+    }
+  
+    .progress-range {
+      width: 100%;
+      top: 0;
+      left: 0;
+      border-radius: 0;
+    }
+  
+    .progress-bar {
+      border-radius: 0;
+    }
+  
+    .volume-range {
+      width: 50px;
+      margin-left: 10px;
+    }
+  
+    .speed,
+    .time {
+      font-size: 12px;
+    }
+  }
+  
+  /* Media Query: Large Smartphone (Horizontal) */
+  @media screen and (max-width: 900px) and (max-height: 500px) {
+    .player {
+      max-height: 95vh;
+      max-width: auto;
+    }
+  
+    .video {
+      height: 95vh;
+      object-fit: cover;
+    }
+  
+    .video-fullscreen {
+      height: 97.5vh;
+      border-radius: 0;
+    }
   }
